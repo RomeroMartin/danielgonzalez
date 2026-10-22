@@ -18,6 +18,11 @@ async function ocupados() {
   return data.map((r) => ({ desde: new Date(r.inicio), hasta: new Date(r.fin) }));
 }
 
+/** Deja elegido el día con el que se abre el formulario (viene de la agenda). */
+export function preseleccionarDia(fecha) {
+  if (fecha >= fechaArg()) { f.fecha = fecha; f.slot = null; }
+}
+
 export async function montar(cont) {
   const activos = ctx.motivos.filter((m) => m.activo);
   if (!activos.length) return reemplazar(cont, h("p", { class: "vacio-panel" }, "Primero cargá al menos un motivo activo (Configuración → Motivos)."));
@@ -82,8 +87,8 @@ export async function montar(cont) {
     campo("telefono", "WhatsApp", { type: "tel", inputmode: "tel", placeholder: "Ej: 221 555-1234", maxlength: 25 }),
     campo("obra_social", "Obra social (opcional)", { type: "text", maxlength: 100 }),
     campo("comentario", "Comentario (opcional)", { maxlength: 500 }, true),
-    h("button", { type: "submit", class: "btn" }, "Cargar turno"));
+    h("button", { type: "submit", class: "btn" }, "Agendar turno"));
 
-  reemplazar(cont, h("h2", { class: "vista__titulo" }, "Cargar turno"), form);
+  reemplazar(cont, h("h2", { class: "vista__titulo" }, "Agendar turno"), h("p", { class: "ayuda" }, "Para pacientes que te piden turno por WhatsApp o por teléfono. Queda confirmado."), form);
   dibujarHoras();
 }

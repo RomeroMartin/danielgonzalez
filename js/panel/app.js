@@ -31,7 +31,7 @@ function icono(nombre) {
   return s;
 }
 
-const TABS = [["pendientes", "Pendientes"], ["agenda", "Agenda"], ["nuevo", "Cargar"], ["config", "Config"]];
+const TABS = [["pendientes", "Pendientes"], ["agenda", "Agenda"], ["nuevo", "Agendar"], ["config", "Config"]];
 const SUBS = [["horarios", "Horarios", horarios], ["motivos", "Motivos", motivos], ["bloqueos", "Bloqueos", bloqueos], ["ajustes", "Ajustes", ajustes]];
 
 // ---------- Login ----------
@@ -170,7 +170,9 @@ async function entrar() {
   const id = new URLSearchParams(location.search).get("turno");
   if (id) { history.replaceState(null, "", location.pathname); abrirPorId(id); }
 
-  if (!estado.escuchando) {   // los listeners se registran una sola vez, aunque se vuelva a iniciar sesión
+  if (!estado.escuchando) {
+    // Desde la agenda: "+ Agendar" abre el formulario con el día que se estaba mirando
+    document.addEventListener("panel:agendar", (ev) => { manual.preseleccionarDia(ev.detail.fecha); ir("nuevo"); });   // los listeners se registran una sola vez, aunque se vuelva a iniciar sesión
     estado.escuchando = true;
     document.addEventListener("panel:refrescar", () => { pintar(); if (estado.tab !== "pendientes") actualizarGlobo(); });
     document.addEventListener("visibilitychange", () => { if (!document.hidden && !document.getElementById("hoja")) pintar(); });
