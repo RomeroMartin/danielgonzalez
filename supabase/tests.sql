@@ -1,19 +1,15 @@
 -- Pruebas de las reglas de negocio. Se corre en el SQL Editor (o con psql)
--- DESPUÉS de schema.sql y seed.sql. Cada bloque falla con excepción si algo
--- no se comporta como debe, y todo se deshace al final (rollback).
--- Nota: asume el horario de ejemplo del seed (lunes 09:00-13:00) y motivos 1 (30 min).
-
-begin;
-
--- Próximo lunes a las 09:00 hora argentina
-create temp table t_cfg on commit drop as
-select (date_trunc('day', now() at time zone 'America/Argentina/Buenos_Aires')
-        + ((8 - extract(isodow from now() at time zone 'America/Argentina/Buenos_Aires')::int) % 7 + 7) * interval '1 day'
-        + interval '9 hours') at time zone 'America/Argentina/Buenos_Aires' as lunes9;
+-- DESPUÉS de schema.sql y seed.sql. Es un único bloque: si algo no se comporta
+-- como debe, falla con una excepción y no queda nada guardado. Si todo sale bien,
+-- borra los datos de prueba (teléfonos 549221555000x y el bloqueo "prueba").
+-- Asume el horario de ejemplo del seed (lunes 09:00-13:00) y el motivo 1 (30 min).
 
 do $$
 declare
-  l9 timestamptz := (select lunes9 from t_cfg);
+  -- Próximo lunes a las 09:00 hora argentina
+  l9 timestamptz := (date_trunc('day', now() at time zone 'America/Argentina/Buenos_Aires')
+        + ((8 - extract(isodow from now() at time zone 'America/Argentina/Buenos_Aires')::int) % 7 + 7) * interval '1 day'
+        + interval '9 hours') at time zone 'America/Argentina/Buenos_Aires';
   r jsonb;
   tok uuid;
 begin
@@ -90,7 +86,10 @@ begin
   r := cancelar_turno_por_token(gen_random_uuid());
   assert r->>'error' = 'no_encontrado', '13: token inexistente: ' || r::text;
 
+  -- Limpieza de los datos de prueba
+  delete from turnos where telefono like '549221555000%';
+  delete from bloqueos where nota = 'prueba';
+
   raise notice 'TODAS LAS PRUEBAS OK';
 end $$;
 
-rollback;
