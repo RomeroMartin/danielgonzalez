@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daniel Gonzalez · Optometrista en City Bell · Turnos online</title>
+  <meta name="description" content="Consultorio optométrico en City Bell. Controles visuales, adaptación de lentes de contacto y control visual infantil. Sacá tu turno online.">
+  <meta name="theme-color" content="#0B4380">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph (la imagen de compartir se agrega en la fase 5) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:title" content="Daniel Gonzalez · Optometrista en City Bell">
+  <meta property="og:description" content="Atención visual primaria. Sacá tu turno online.">
+
+  <!-- Datos estructurados para Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Optician",
+    "name": "Daniel Gonzalez - Consultorio Optométrico",
+    "description": "Atención visual primaria: controles visuales, lentes de contacto y control visual infantil.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Cantilo e/ 13 A y 13 B #146 (Consultorios Delta)",
+      "addressLocality": "City Bell",
+      "addressRegion": "Buenos Aires",
+      "addressCountry": "AR"
+    },
+    "sameAs": ["https://www.instagram.com/opto.danielgonzalez/"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Isotipo provisorio (círculo con "g"). Reemplazar por el logo original. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="isotipo" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="28" fill="#fff" stroke="currentColor" stroke-width="6"/>
+      <text x="32" y="45" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="40" fill="currentColor">g</text>
+    </symbol>
+  </svg>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="marca" href="#inicio" aria-label="Daniel Gonzalez, Consultorio Optométrico">
+        <svg class="marca__iso" aria-hidden="true"><use href="#isotipo"/></svg>
+        <span class="marca__texto">
+          <span class="marca__nombre">Daniel Gonzalez</span>
+          <span class="marca__rol">Consultorio Optométrico</span>
+        </span>
+      </a>
+      <a class="btn btn--chico" href="#turnero">Reservar turno</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Hero -->
+    <section class="hero" id="inicio">
+      <div class="cartilla" aria-hidden="true">
+        <span>E</span><span>F P</span><span>T O Z</span><span>L P E D</span><span>P E C F D</span>
+      </div>
+      <div class="contenedor">
+        <div class="hero__contenido">
+          <svg class="hero__logo" style="color:var(--azul)" aria-hidden="true"><use href="#isotipo"/></svg>
+          <span class="eyebrow">Daniel Gonzalez · Consultorio Optométrico</span>
+          <h1>Atención visual primaria</h1>
+          <p class="lead">Cuidá tu vista con un profesional, cerca de casa, en City Bell. Sacá tu turno online en menos de un minuto.</p>
+          <div class="hero__acciones">
+            <a class="btn" href="#turnero">Reservar turno</a>
+            <a class="btn btn--borde" href="#servicios">Ver servicios</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Sobre Daniel -->
+    <section class="seccion" id="sobre">
+      <div class="contenedor sobre">
+        <div class="foto reveal">
+          <span class="foto__ph" aria-hidden="true">DG</span>
+          <!-- Foto de Daniel: guardar como assets/daniel.jpg. Si no existe, se ve el recuadro. -->
+          <img src="assets/daniel.jpg" alt="Daniel Gonzalez, optometrista" loading="lazy" onerror="this.remove()">
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">Sobre Daniel</span>
+          <h2>Daniel Gonzalez Cafaro</h2>
+          <ul class="credenciales">
+            <li>Lic. en Óptica Ocular y Optometría</li>
+            <li>UNLP</li>
+            <li>MP 264301</li>
+          </ul>
+          <p>Soy optometrista y me dedico a cuidar la salud visual de pacientes de todas las edades. Trabajo con un trato cercano, explicando cada paso del control para que entiendas qué le pasa a tu vista y cómo cuidarla.</p>
+          <p>Atiendo con turno previo en Consultorios Delta, en el corazón de City Bell.</p>
+          <a class="btn" href="#turnero">Reservar turno</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Qué hace un optometrista -->
+    <section class="seccion seccion--suave" id="optometria">
+      <div class="contenedor">
+        <div class="cabecera-seccion reveal">
+          <span class="eyebrow">Optometría</span>
+          <h2>¿Qué hace un optometrista?</h2>
+          <p class="lead">Es el profesional de la atención visual primaria: se ocupa de los problemas de la visión que no son patológicos.</p>
+        </div>
+        <div class="tres">
+          <article class="pilar reveal"><div class="pilar__num">01</div><h3>Prevenir</h3><p>Controles periódicos para cuidar tu vista y la de tu familia antes de que aparezcan molestias.</p></article>
+          <article class="pilar reveal"><div class="pilar__num">02</div><h3>Detectar</h3><p>Evaluamos cómo ves y cómo trabajan tus ojos para encontrar a tiempo cualquier alteración visual.</p></article>
+          <article class="pilar reveal"><div class="pilar__num">03</div><h3>Solucionar</h3><p>Anteojos, lentes de contacto y recomendaciones a medida para resolver los problemas visuales no patológicos.</p></article>
+        </div>
+        <p class="aviso reveal"><strong>Importante:</strong> ante dolor ocular, infección o pérdida brusca de la visión, consultá cuanto antes a un oftalmólogo.</p>
+      </div>
+    </section>
+
+    <!-- 4. Servicios (tarjetas generadas desde la tabla motivos) -->
+    <section class="seccion" id="servicios">
+      <div class="contenedor">
+        <div class="cabecera-seccion reveal">
+          <span class="eyebrow">Servicios</span>
+          <h2>¿Qué necesitás?</h2>
+          <p class="lead">Elegí el motivo de tu consulta y reservá tu horario.</p>
+        </div>
+        <div class="grilla" id="servicios-lista" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- 5. Turnero (se arma en la fase 3) -->
+    <section class="seccion seccion--suave" id="turnero">
+      <div class="contenedor">
+        <div class="turnero-caja reveal" id="turnero-contenedor">
+          <span class="eyebrow">Turnos online</span>
+          <h2>Reservá tu turno</h2>
+          <p>Estamos terminando de preparar el turnero online. Mientras tanto, podés pedir tu turno por WhatsApp.</p>
+          <a class="btn" data-wsp href="#">Pedir turno por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Ubicación -->
+    <section class="seccion" id="ubicacion">
+      <div class="contenedor ubicacion">
+        <div class="reveal">
+          <span class="eyebrow">Ubicación</span>
+          <h2>Consultorios Delta</h2>
+          <address class="direccion" id="direccion">Cantilo e/ 13 A y 13 B #146, City Bell</address>
+          <p>Atención con turno previo. Si tenés dudas para llegar, escribinos por WhatsApp.</p>
+          <a class="btn" id="como-llegar" target="_blank" rel="noopener"
+             href="https://www.google.com/maps/search/?api=1&query=Consultorios+Delta+Cantilo+146+City+Bell">Cómo llegar</a>
+        </div>
+        <iframe class="mapa reveal" title="Mapa de Consultorios Delta en City Bell" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Cantilo+146,+City+Bell,+Buenos+Aires&output=embed"></iframe>
+      </div>
+    </section>
+
+    <!-- 7. Preguntas frecuentes -->
+    <section class="seccion seccion--suave" id="faq">
+      <div class="contenedor">
+        <div class="cabecera-seccion reveal">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2>Te respondemos lo más común</h2>
+        </div>
+        <div class="faq reveal">
+          <details><summary>¿Cuánto dura la consulta?</summary>
+            <p>Depende del motivo: un control visual dura alrededor de 30 minutos y una adaptación de lentes de contacto, alrededor de 45. Cada servicio indica su duración.</p></details>
+          <details><summary>¿Qué tengo que llevar?</summary>
+            <p>Tus anteojos o lentes de contacto actuales, la receta anterior si la tenés y, si te hicieron estudios oculares, los resultados. Si tenés obra social, avisanos al reservar.</p></details>
+          <details><summary>¿Atiende niños?</summary>
+            <p>Sí. Hay un control visual infantil pensado para los más chicos, con un trato amable y sin apuro.</p></details>
+          <details><summary>¿Cómo cancelo mi turno?</summary>
+            <p>Al reservar recibís un link privado para ver o cancelar tu turno hasta <span data-horas-cancelacion>12</span> horas antes. Si falta menos tiempo, escribile a Daniel por WhatsApp.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. Footer -->
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="pie__fila">
+        <div>
+          <strong style="color:#fff">Daniel Gonzalez · Consultorio Optométrico</strong><br>
+          Lic. en Óptica Ocular y Optometría (UNLP) · MP 264301
+        </div>
+        <nav class="pie__enlaces" aria-label="Contacto">
+          <a href="https://www.instagram.com/opto.danielgonzalez/" target="_blank" rel="noopener">Instagram</a>
+          <a data-wsp href="#" target="_blank" rel="noopener">WhatsApp</a>
+        </nav>
+      </div>
+      <small>Hecho por Martin Romero Studio</small>
+    </div>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a class="wsp-flotante" data-wsp href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.55 4.19 1.6 6.01L4 29l8.1-1.57a12 12 0 0 0 3.94.67C22.68 28.1 28 22.7 28 16.06 28 9.4 22.68 3 16.04 3Zm0 22.07c-1.2 0-2.37-.32-3.4-.93l-.5-.3-4.8.93.95-4.68-.33-.52a9.9 9.9 0 0 1-1.53-5.3c0-5.48 4.46-9.94 9.95-9.94 5.48 0 9.94 4.46 9.94 9.94 0 5.5-4.46 9.8-9.94 9.8Zm5.45-7.4c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.64-.93-2.25-.24-.58-.5-.5-.68-.5l-.58-.01c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.7.3 1.26.48 1.7.62.72.23 1.37.2 1.88.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg>
+  </a>
+
+  <script type="module" src="js/landing.js"></script>
+</body>
+</html>

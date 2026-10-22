@@ -1,0 +1,221 @@
+/* =====================================================================
+   Turnero Daniel Gonzalez - estilos de la landing
+   Mobile first. Los colores y medidas salen todos de los tokens de :root.
+   ===================================================================== */
+
+/* ---------- Tokens de diseño ---------- */
+:root {
+  --azul: #0B4380;
+  --azul-oscuro: #08305c;
+  --azul-claro: #dbe6f3;
+  --fondo: #ffffff;
+  --fondo-suave: #EEF2F7;
+  --texto: #2b3440;
+  --texto-suave: #55606e;
+  --borde: #d5dde8;
+  --whatsapp: #1f9d55;
+  --error: #b3261e;
+
+  --fuente: "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --esp-1: .5rem;
+  --esp-2: 1rem;
+  --esp-3: 1.5rem;
+  --esp-4: 2.5rem;
+  --esp-5: 4rem;
+
+  --radio: 16px;
+  --radio-chico: 10px;
+  --sombra: 0 6px 24px rgba(11, 67, 128, .10);
+  --ancho: 1100px;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--texto);
+  background: var(--fondo);
+  -webkit-text-size-adjust: 100%;
+}
+img, svg, iframe { max-width: 100%; display: block; }
+h1, h2, h3 { color: var(--azul); line-height: 1.2; margin: 0 0 var(--esp-2); }
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 4.5vw, 2.3rem); font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+p { margin: 0 0 var(--esp-2); }
+a { color: var(--azul); }
+:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 6px; }
+
+.contenedor { width: min(100% - 2rem, var(--ancho)); margin-inline: auto; }
+.seccion { padding-block: var(--esp-5); position: relative; }
+.seccion--suave { background: var(--fondo-suave); }
+.eyebrow {
+  display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--azul); margin-bottom: var(--esp-1);
+}
+.lead { font-size: 1.1rem; color: var(--texto-suave); }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 48px; padding: .75rem 1.6rem; border-radius: 999px; border: 2px solid var(--azul);
+  font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+  background: var(--azul); color: #fff; transition: transform .15s, background .15s, box-shadow .15s;
+}
+.btn:hover { background: var(--azul-oscuro); transform: translateY(-1px); box-shadow: var(--sombra); }
+.btn--borde { background: transparent; color: var(--azul); }
+.btn--borde:hover { background: var(--azul-claro); }
+.btn--wsp { background: var(--whatsapp); border-color: var(--whatsapp); }
+.btn--wsp:hover { background: #17824a; }
+.btn--chico { min-height: 40px; padding: .5rem 1.1rem; font-size: .85rem; white-space: nowrap; }
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--borde);
+}
+.encabezado__fila { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: var(--esp-2); }
+.marca { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--azul); }
+.marca__iso { width: 36px; height: 36px; flex: none; }
+.marca__texto { display: flex; flex-direction: column; line-height: 1.15; }
+.marca__nombre { font-weight: 700; font-size: .95rem; white-space: nowrap; }
+.marca__rol { font-size: .62rem; white-space: nowrap; font-weight: 500; letter-spacing: .04em; color: var(--texto-suave); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; overflow: hidden; isolation: isolate;
+  padding-block: clamp(3.5rem, 12vw, 7rem); background: var(--fondo);
+}
+/* Arcos circulares gruesos en las esquinas */
+.hero::before, .hero::after {
+  content: ""; position: absolute; z-index: -1; border-radius: 50%;
+  border: clamp(18px, 4vw, 34px) solid var(--azul);
+}
+.hero::before { width: clamp(220px, 45vw, 460px); aspect-ratio: 1; top: -22%; right: -12%; }
+.hero::after  { width: clamp(180px, 36vw, 380px); aspect-ratio: 1; bottom: -26%; left: -12%; opacity: .9; }
+/* Cartilla de optotipos desenfocada */
+.cartilla {
+  position: absolute; inset: 0; z-index: -1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: .6em; font-weight: 700; letter-spacing: .5em; color: var(--azul);
+  opacity: .09; filter: blur(3px); user-select: none; pointer-events: none; padding-left: .5em;
+}
+.cartilla span:nth-child(1) { font-size: 7rem; }
+.cartilla span:nth-child(2) { font-size: 5rem; }
+.cartilla span:nth-child(3) { font-size: 3.6rem; }
+.cartilla span:nth-child(4) { font-size: 2.6rem; }
+.cartilla span:nth-child(5) { font-size: 1.9rem; }
+.hero__contenido { max-width: 640px; position: relative; }
+.hero__logo { width: 84px; height: 84px; margin-bottom: var(--esp-3); }
+.hero .lead { font-size: clamp(1.05rem, 2.6vw, 1.3rem); max-width: 34ch; }
+.hero__acciones { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-3); }
+
+/* ---------- Sobre Daniel ---------- */
+.sobre { display: grid; gap: var(--esp-4); align-items: center; }
+.foto {
+  position: relative; aspect-ratio: 4 / 5; max-width: 360px; width: 100%; margin-inline: auto;
+  border-radius: var(--radio); overflow: hidden; background: var(--azul-claro); box-shadow: var(--sombra);
+  display: grid; place-items: center;
+}
+.foto__ph { font-size: 4rem; font-weight: 700; color: var(--azul); opacity: .5; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.credenciales { display: flex; flex-wrap: wrap; gap: .5rem; margin: var(--esp-2) 0 var(--esp-3); padding: 0; list-style: none; }
+.credenciales li {
+  background: var(--azul-claro); color: var(--azul-oscuro); font-size: .85rem; font-weight: 600;
+  padding: .35rem .9rem; border-radius: 999px;
+}
+
+/* ---------- Qué hace un optometrista ---------- */
+.tres { display: grid; gap: var(--esp-2); margin-top: var(--esp-3); }
+.pilar { background: #fff; border-radius: var(--radio); padding: var(--esp-3); box-shadow: var(--sombra); }
+.pilar__num { font-size: 2rem; font-weight: 700; color: var(--azul); opacity: .25; line-height: 1; }
+.aviso {
+  margin-top: var(--esp-3); padding: var(--esp-2) var(--esp-3); border-left: 5px solid var(--azul);
+  background: #fff; border-radius: var(--radio-chico); font-weight: 500;
+}
+
+/* ---------- Servicios ---------- */
+.cabecera-seccion { max-width: 620px; margin-bottom: var(--esp-4); }
+.grilla { display: grid; gap: var(--esp-3); }
+.tarjeta {
+  display: flex; flex-direction: column; background: #fff; border: 1px solid var(--borde);
+  border-radius: var(--radio); padding: var(--esp-3); transition: box-shadow .2s, transform .2s;
+}
+.tarjeta:hover { box-shadow: var(--sombra); transform: translateY(-3px); }
+.tarjeta p { color: var(--texto-suave); flex: 1; }
+.tarjeta__duracion { font-size: .85rem; font-weight: 600; color: var(--azul); margin-bottom: var(--esp-2); }
+
+/* ---------- Turnero (placeholder hasta la fase 3) ---------- */
+.turnero-caja {
+  background: var(--azul); color: #fff; border-radius: var(--radio); padding: clamp(1.75rem, 6vw, 3.5rem);
+  text-align: center; position: relative; overflow: hidden;
+}
+.turnero-caja h2, .turnero-caja .eyebrow { color: #fff; }
+.turnero-caja p { max-width: 52ch; margin-inline: auto; opacity: .92; }
+.turnero-caja .btn { background: #fff; color: var(--azul); border-color: #fff; }
+
+/* ---------- Ubicación ---------- */
+.ubicacion { display: grid; gap: var(--esp-3); }
+.mapa { border: 0; width: 100%; height: 320px; border-radius: var(--radio); background: var(--azul-claro); box-shadow: var(--sombra); }
+.direccion { font-style: normal; font-weight: 600; font-size: 1.1rem; color: var(--azul); }
+
+/* ---------- Preguntas frecuentes ---------- */
+.faq { max-width: 760px; }
+.faq details { border-bottom: 1px solid var(--borde); }
+.faq summary {
+  cursor: pointer; list-style: none; padding: var(--esp-2) 2rem var(--esp-2) 0; font-weight: 600;
+  color: var(--azul); position: relative;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: .25rem; top: 50%; transform: translateY(-50%);
+  font-size: 1.5rem; font-weight: 500; transition: transform .2s;
+}
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding-bottom: var(--esp-2); color: var(--texto-suave); }
+
+/* ---------- Footer ---------- */
+.pie { background: var(--azul); color: #dbe6f3; padding-block: var(--esp-4) var(--esp-3); }
+.pie a { color: #fff; }
+.pie__fila { display: grid; gap: var(--esp-3); }
+.pie__enlaces { display: flex; flex-wrap: wrap; gap: var(--esp-2) var(--esp-3); }
+.pie small { display: block; margin-top: var(--esp-3); opacity: .8; }
+
+/* ---------- Botón flotante de WhatsApp ---------- */
+.wsp-flotante {
+  position: fixed; right: 16px; bottom: 16px; z-index: 30; width: 58px; height: 58px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--whatsapp); color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25); transition: transform .15s;
+}
+.wsp-flotante:hover { transform: scale(1.07); }
+.wsp-flotante svg { width: 30px; height: 30px; }
+
+/* ---------- Animación de aparición ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .tarjeta, .wsp-flotante { transition: none; }
+}
+
+/* ---------- Tablet / escritorio ---------- */
+@media (min-width: 768px) {
+  .sobre { grid-template-columns: 340px 1fr; gap: var(--esp-5); }
+  .tres, .grilla { grid-template-columns: repeat(3, 1fr); }
+  .ubicacion { grid-template-columns: 1fr 1.3fr; align-items: center; gap: var(--esp-4); }
+  .mapa { height: 400px; }
+  .pie__fila { grid-template-columns: 1fr auto; align-items: center; }
+  .cartilla span:nth-child(1) { font-size: 10rem; }
+  .cartilla span:nth-child(2) { font-size: 7rem; }
+  .cartilla span:nth-child(3) { font-size: 5rem; }
+  .cartilla span:nth-child(4) { font-size: 3.6rem; }
+  .cartilla span:nth-child(5) { font-size: 2.6rem; }
+}
+@media (min-width: 1024px) {
+  .hero__contenido { margin-left: 4%; }
+}
