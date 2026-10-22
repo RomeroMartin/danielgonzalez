@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /panel/
+Disallow: /turno.html
+
+Sitemap: https://danielgonzalez-8cc.pages.dev/sitemap.xml
