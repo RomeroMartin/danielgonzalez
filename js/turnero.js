@@ -28,8 +28,25 @@ const e = {
   paso: 1, cfg: null, motivos: [], horarios: [], bloqueos: [], ocupados: [],
   motivo: null, fecha: null, slot: null, mes: null, diasLibres: new Set(),
   form: { nombre: "", telefono: "", obra_social: "", comentario: "", acepta: false },
-  token: null, widgetId: null, enviando: false, aviso: "", errores: {}, cargando: false,
+  token: null, widgetId: null, enviando: false, errores: {}, cargando: false,
 };
+
+// ---------- Modal de avisos ----------
+// Los avisos importantes (turno pendiente, horario ocupado, errores) salen en un modal para que
+// nadie los pierda por estar fuera de la pantalla.
+function avisar({ titulo, texto, accion }) {
+  document.getElementById("modal-aviso")?.remove();
+  const dlg = h("dialog", { id: "modal-aviso", class: "modal", "aria-labelledby": "modal-titulo" },
+    h("div", { class: "modal__caja" },
+      h("h3", { id: "modal-titulo" }, titulo),
+      h("p", {}, texto),
+      h("div", { class: "modal__acciones" }, accion ?? null,
+        h("button", { type: "button", class: "btn btn--borde", onclick: () => dlg.close() }, "Entendido"))));
+  dlg.addEventListener("click", (ev) => { if (ev.target === dlg) dlg.close(); });   // clic en el fondo
+  dlg.addEventListener("close", () => dlg.remove());
+  document.body.append(dlg);
+  dlg.showModal();
+}
 
 // ---------- Carga de datos ----------
 async function cargarBase() {
@@ -79,9 +96,9 @@ async function irA(paso) {
     // Datos frescos: otro paciente pudo haber reservado mientras tanto
     e.cargando = true; dibujar();
     try { await cargarOcupados(); recalcularDias(); }
-    catch { e.aviso = "No pudimos cargar los horarios. Revisá tu conexión e intentá de nuevo."; }
+    catch { avisar({ titulo: "No pudimos cargar los horarios", texto: "Revisá tu conexión e intentá de nuevo." }); }
     e.cargando = false;
-    if (paso === 3 && !slotsDelDia(e.fecha).length) { paso = 2; e.aviso = "Ese día ya no tiene horarios libres. Elegí otro."; }
+    if (paso === 3 && !slotsDelDia(e.fecha).length) { paso = 2; avisar({ titulo: "Ese día ya no tiene horarios", texto: "Se ocuparon todos los horarios de ese día. Elegí otro día." }); }
   }
   e.paso = paso;
   dibujar();
@@ -106,13 +123,12 @@ function progreso() {
 
 function cuerpo() {
   if (e.exito) return pantallaExito();
-  const avisoEl = e.aviso ? h("p", { class: "aviso-error", role: "alert" }, e.aviso) : null;
   if (e.cargando) return [h("p", { class: "cargando" }, "Cargando horarios…")];
-  return [avisoEl, [paso1, paso2, paso3, paso4][e.paso - 1]()];
+  return [[paso1, paso2, paso3, paso4][e.paso - 1]()];
 }
 
 function volver(paso) {
-  return h("button", { type: "button", class: "btn btn--borde btn--chico", onclick: () => { e.aviso = ""; irA(paso); } }, "← Volver");
+  return h("button", { type: "button", class: "btn btn--borde btn--chico", onclick: () => irA(paso) }, "← Volver");
 }
 
 // Paso 1: motivo
@@ -121,7 +137,7 @@ function paso1() {
     h("h3", { class: "turnero__titulo" }, "¿Cuál es el motivo de tu consulta?"),
     h("div", { class: "opciones" }, e.motivos.map((m) => h("button", {
       type: "button", class: "opcion", "aria-pressed": e.motivo?.id === m.id ? "true" : "false",
-      onclick: () => { e.motivo = m; e.aviso = ""; irA(2); },
+      onclick: () => { e.motivo = m; irA(2); },
     }, h("strong", {}, m.nombre), h("span", {}, m.descripcion || ""), h("em", {}, `${m.duracion_min} min`)))));
 }
 
@@ -143,7 +159,7 @@ function paso2() {
       type: "button", class: "dia" + (libre ? " dia--libre" : ""), disabled: !libre,
       "aria-label": libre ? `${d} de ${nombreMes(m - 1)}, hay horarios` : `${d} de ${nombreMes(m - 1)}, sin horarios`,
       "aria-pressed": e.fecha === f ? "true" : null,
-      onclick: () => { e.fecha = f; e.aviso = ""; irA(3); },
+      onclick: () => { e.fecha = f; irA(3); },
     }, String(d)));
   }
 
@@ -178,7 +194,7 @@ function paso3() {
     h("h3", { class: "turnero__titulo" }, "Elegí el horario"),
     h("p", { class: "resumen-linea" }, h("strong", {}, e.motivo.nombre), ` · ${formatoDia(slots[0] ?? new Date(e.fecha + "T12:00:00-03:00"))}`),
     h("div", { class: "horas" }, slots.map((s) => h("button", {
-      type: "button", class: "hora", onclick: () => { e.slot = s; e.aviso = ""; irA(4); },
+      type: "button", class: "hora", onclick: () => { e.slot = s; irA(4); },
     }, formatoHora(s)))),
     h("div", { class: "turnero__pie" }, volver(2)));
 }
@@ -273,8 +289,14 @@ async function enviar(ev) {
   ev.preventDefault();
   if (e.enviando) return;
   e.errores = validar();
-  if (Object.keys(e.errores).length) { e.aviso = ""; dibujar(); return; }
-  e.enviando = true; e.aviso = ""; dibujar();
+  if (Object.keys(e.errores).length) {
+    dibujar();
+    const primero = raiz.querySelector('[aria-invalid="true"]') ?? raiz.querySelector(".campo__error");
+    primero?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (primero?.matches("input, textarea")) primero.focus({ preventScroll: true });
+    return;
+  }
+  e.enviando = true; dibujar();
 
   let r;
   try {
@@ -295,16 +317,30 @@ async function enviar(ev) {
 
   // El token de Turnstile es de un solo uso: hay que pedir otro en cualquier error
   e.token = null;
-  if (r.error === "horario_ocupado" || r.error === "fuera_de_horario" || r.error === "dia_bloqueado" ||
-      r.error === "horario_pasado" || r.error === "fuera_de_anticipacion") {
-    e.aviso = r.error === "horario_ocupado" ? "Ese horario se acaba de ocupar. Elegí otro." : "Ese horario ya no está disponible. Elegí otro.";
-    e.errores = {};
+  e.errores = {};
+  if (["horario_ocupado", "fuera_de_horario", "dia_bloqueado", "horario_pasado", "fuera_de_anticipacion"].includes(r.error)) {
     await irA(3);   // recarga los horarios frescos
+    avisar({
+      titulo: r.error === "horario_ocupado" ? "Ese horario se acaba de ocupar" : "Ese horario ya no está disponible",
+      texto: "Elegí otro horario de la lista.",
+    });
     return;
   }
-  e.aviso = MENSAJES[r.error] ?? "No pudimos registrar tu turno. Probá de nuevo en un momento o escribile a Daniel por WhatsApp.";
-  e.errores = {};
+  if (r.error === "pendiente_existente") {
+    dibujar();
+    avisar({
+      titulo: "Ya tenés un turno pendiente de confirmación",
+      texto: "Con ese número de WhatsApp ya hay una solicitud esperando que Daniel la confirme. Podés pedir otro turno cuando la confirme o la rechace. Si necesitás cambiarla, escribile por WhatsApp.",
+      accion: h("a", { class: "btn btn--wsp", target: "_blank", rel: "noopener",
+        href: linkWhatsApp(e.cfg.whatsapp, `Hola Daniel, ya tengo un turno pendiente de confirmación. ${e.form.nombre.trim()}`) }, "Escribirle a Daniel"),
+    });
+    return;
+  }
   dibujar();
+  avisar({
+    titulo: "No pudimos registrar tu turno",
+    texto: MENSAJES[r.error] ?? "Probá de nuevo en un momento o escribile a Daniel por WhatsApp.",
+  });
 }
 
 // ---------- Pantalla de éxito ----------
@@ -336,8 +372,9 @@ function pantallaExito() {
 }
 
 function reiniciar() {
-  Object.assign(e, { paso: 1, motivo: null, fecha: null, slot: null, exito: null, token: null, aviso: "", errores: {},
+  Object.assign(e, { paso: 1, motivo: null, fecha: null, slot: null, exito: null, token: null, enviando: false, errores: {},
     form: { nombre: "", telefono: "", obra_social: "", comentario: "", acepta: false } });
+  document.getElementById("modal-aviso")?.close();
   dibujar();
 }
 
@@ -355,7 +392,10 @@ async function iniciar() {
   // Si el paciente tocó "Reservar" en una tarjeta de servicios, arranca con ese motivo
   const elegir = (id) => {
     const m = e.motivos.find((x) => x.id === id);
-    if (m && !e.exito) { e.motivo = m; irA(2); }
+    if (!m) return;
+    reiniciar();          // empieza limpio: sin formulario ni errores de un intento anterior
+    e.motivo = m;
+    irA(2);
   };
   document.addEventListener("reservar", (ev) => elegir(ev.detail.motivoId));
   dibujar();
