@@ -99,3 +99,11 @@
 @media (max-width: 767px) {
   .turnero__cuerpo { padding-bottom: 5.5rem; }
 }
+
+/* Modal de avisos */
+.modal { border: 0; padding: 0; border-radius: var(--radio); max-width: min(92vw, 440px); width: 100%; box-shadow: 0 20px 60px rgba(8, 48, 92, .35); color: var(--texto); }
+.modal::backdrop { background: rgba(8, 48, 92, .55); backdrop-filter: blur(2px); }
+.modal__caja { padding: var(--esp-3); text-align: center; }
+.modal__caja h3 { font-size: 1.25rem; }
+.modal__caja p { color: var(--texto-suave); }
+.modal__acciones { display: grid; gap: .75rem; margin-top: var(--esp-3); }
