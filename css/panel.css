@@ -51,6 +51,7 @@ body.panel { background: var(--fondo-suave); padding-bottom: calc(76px + env(saf
 
 /* ---------- Agenda ---------- */
 .agenda-barra { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-1); margin-bottom: var(--esp-1); }
+.agenda-barra__acciones { display: flex; gap: .5rem; }
 .agenda-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--esp-1); margin-bottom: var(--esp-2); }
 .agenda-nav__titulo { display: block; text-align: center; color: var(--azul); font-size: .95rem; }
 .agenda-nav__titulo::first-letter, .agenda-dia__titulo::first-letter, .bloqueo-fila span::first-letter { text-transform: uppercase; }
