@@ -1,0 +1,101 @@
+/* Estilos del turnero (index.html) y de la pantalla de turno (turno.html) */
+
+.turnero {
+  background: #fff; border-radius: var(--radio); box-shadow: var(--sombra);
+  max-width: 720px; margin-inline: auto; overflow: hidden; border: 1px solid var(--borde); text-align: left;
+}
+.turnero__cuerpo { padding: clamp(1.25rem, 4vw, 2.25rem); }
+.turnero__titulo { font-size: 1.3rem; margin-bottom: var(--esp-2); }
+.turnero__pie { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-2); margin-top: var(--esp-3); }
+.cargando { text-align: center; color: var(--texto-suave); padding: var(--esp-4) 0; }
+.resumen-linea { color: var(--texto-suave); margin-bottom: var(--esp-2); }
+.resumen-linea strong { color: var(--azul); }
+
+/* Indicador de progreso */
+.progreso { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: var(--esp-2) var(--esp-1); list-style: none; background: var(--fondo-suave); }
+.progreso__paso { display: flex; flex-direction: column; align-items: center; gap: .3rem; font-size: .72rem; font-weight: 600; color: var(--texto-suave); text-align: center; }
+.progreso__num { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid var(--borde); font-size: .8rem; }
+.progreso__paso.activo { color: var(--azul); }
+.progreso__paso.activo .progreso__num { background: var(--azul); border-color: var(--azul); color: #fff; }
+.progreso__paso.hecho .progreso__num { background: var(--azul-claro); border-color: var(--azul); color: var(--azul); }
+
+/* Avisos */
+.aviso-error { background: #fdecea; color: var(--error); border-radius: var(--radio-chico); padding: .75rem 1rem; font-weight: 500; }
+
+/* Paso 1: motivos */
+.opciones { display: grid; gap: var(--esp-2); }
+.opcion {
+  display: grid; gap: .25rem; text-align: left; font: inherit; color: var(--texto); background: #fff; cursor: pointer;
+  border: 2px solid var(--borde); border-radius: var(--radio-chico); padding: 1rem 1.1rem; min-height: 64px;
+  transition: border-color .15s, background .15s;
+}
+.opcion:hover, .opcion[aria-pressed="true"] { border-color: var(--azul); background: var(--fondo-suave); }
+.opcion strong { color: var(--azul); }
+.opcion span { font-size: .9rem; color: var(--texto-suave); }
+.opcion em { font-style: normal; font-size: .82rem; font-weight: 600; color: var(--azul); }
+
+/* Paso 2: calendario */
+.cal__cabecera { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--esp-1); text-transform: capitalize; color: var(--azul); }
+.cal__nav { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--borde); background: #fff; font-size: 1.4rem; color: var(--azul); cursor: pointer; }
+.cal__nav:disabled { opacity: .3; cursor: default; }
+.cal__grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal__dow { text-align: center; font-size: .75rem; font-weight: 600; color: var(--texto-suave); padding: .25rem 0; }
+.dia { aspect-ratio: 1; min-height: 44px; border: 0; border-radius: var(--radio-chico); background: transparent; font: inherit; font-weight: 500; color: #a3acb8; display: grid; place-items: center; }
+.dia--libre { background: var(--azul-claro); color: var(--azul); font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
+.dia--libre:hover, .dia[aria-pressed="true"] { background: var(--azul); color: #fff; }
+.dia:disabled { cursor: default; }
+.cal__ayuda { font-size: .82rem; color: var(--texto-suave); margin: var(--esp-2) 0 0; }
+.vacio { text-align: center; padding: var(--esp-3) 0; }
+
+/* Paso 3: horarios */
+.horas { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.hora { min-height: 48px; border-radius: var(--radio-chico); border: 2px solid var(--azul); background: #fff; color: var(--azul); font: inherit; font-weight: 600; cursor: pointer; transition: background .15s, color .15s; }
+.hora:hover { background: var(--azul); color: #fff; }
+
+/* Paso 4: formulario */
+.resumen { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; background: var(--fondo-suave); border-radius: var(--radio-chico); padding: var(--esp-2); margin-bottom: var(--esp-3); }
+.resumen div { display: grid; gap: .15rem; font-size: .85rem; }
+.resumen span { color: var(--texto-suave); font-size: .75rem; }
+.resumen strong { color: var(--azul); }
+.form { display: grid; gap: var(--esp-2); }
+.campo { display: grid; gap: .35rem; }
+.campo label { font-weight: 600; font-size: .9rem; }
+.opcional { font-weight: 400; color: var(--texto-suave); }
+.campo input, .campo textarea {
+  font: inherit; color: var(--texto); padding: .75rem .9rem; border: 2px solid var(--borde); border-radius: var(--radio-chico); background: #fff; min-height: 48px; width: 100%;
+}
+.campo input:focus, .campo textarea:focus { outline: none; border-color: var(--azul); }
+.campo input[aria-invalid="true"] { border-color: var(--error); }
+.campo__error { color: var(--error); font-weight: 500; }
+.check { display: flex; gap: .7rem; align-items: flex-start; font-size: .82rem; color: var(--texto-suave); line-height: 1.5; }
+.check input { width: 22px; height: 22px; flex: none; margin-top: .1rem; accent-color: var(--azul); }
+.turnstile { min-height: 65px; }
+.btn:disabled { opacity: .6; cursor: default; transform: none; box-shadow: none; }
+
+/* Éxito */
+.exito { text-align: center; }
+.exito__icono { width: 64px; height: 64px; margin: 0 auto var(--esp-2); border-radius: 50%; background: var(--whatsapp); color: #fff; display: grid; place-items: center; font-size: 2rem; }
+.exito__nota { color: var(--texto-suave); font-size: .92rem; max-width: 46ch; margin-inline: auto; }
+.acciones { display: grid; gap: .75rem; margin: var(--esp-3) auto; max-width: 360px; }
+
+/* turno.html */
+.pagina-turno { background: var(--fondo-suave); min-height: 100vh; }
+.pagina-turno main { padding-block: var(--esp-4); }
+.estado { display: inline-block; padding: .3rem .9rem; border-radius: 999px; font-size: .85rem; font-weight: 700; background: var(--azul-claro); color: var(--azul-oscuro); margin-bottom: var(--esp-2); }
+.estado--ok { background: #d9f2e3; color: #14683b; }
+.estado--mal { background: #fdecea; color: var(--error); }
+.datos-turno { display: grid; gap: .6rem; margin: var(--esp-2) 0 var(--esp-3); }
+.datos-turno div { display: flex; justify-content: space-between; gap: var(--esp-2); border-bottom: 1px solid var(--borde); padding-bottom: .5rem; }
+.datos-turno span { color: var(--texto-suave); }
+.datos-turno strong { color: var(--azul); text-align: right; }
+
+@media (min-width: 768px) {
+  .opciones { grid-template-columns: repeat(3, 1fr); }
+  .horas { grid-template-columns: repeat(4, 1fr); }
+  .acciones { grid-template-columns: 1fr; }
+}
+
+/* En celular, deja lugar abajo para que el botón flotante de WhatsApp no tape los botones */
+@media (max-width: 767px) {
+  .turnero__cuerpo { padding-bottom: 5.5rem; }
+}

@@ -140,6 +140,7 @@ a { color: var(--azul); }
 
 /* ---------- Servicios ---------- */
 .cabecera-seccion { max-width: 620px; margin-bottom: var(--esp-4); }
+.cabecera-seccion--centro { text-align: center; margin-inline: auto; }
 .grilla { display: grid; gap: var(--esp-3); }
 .tarjeta {
   display: flex; flex-direction: column; background: #fff; border: 1px solid var(--borde);

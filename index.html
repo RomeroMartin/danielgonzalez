@@ -36,6 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/turnero.css">
 </head>
 <body>
 
@@ -132,14 +133,19 @@
       </div>
     </section>
 
-    <!-- 5. Turnero (se arma en la fase 3) -->
+    <!-- 5. Turnero (lo arma js/turnero.js; el contenido de abajo se ve solo mientras carga o si falla JS) -->
     <section class="seccion seccion--suave" id="turnero">
       <div class="contenedor">
-        <div class="turnero-caja reveal" id="turnero-contenedor">
+        <div class="cabecera-seccion cabecera-seccion--centro reveal">
           <span class="eyebrow">Turnos online</span>
           <h2>Reservá tu turno</h2>
-          <p>Estamos terminando de preparar el turnero online. Mientras tanto, podés pedir tu turno por WhatsApp.</p>
-          <a class="btn" data-wsp href="#">Pedir turno por WhatsApp</a>
+          <p class="lead">En cuatro pasos y sin crear ninguna cuenta.</p>
+        </div>
+        <div id="turnero-contenedor">
+          <div class="turnero-caja">
+            <p>Cargando el turnero… Si no aparece, podés pedir tu turno por WhatsApp.</p>
+            <a class="btn" data-wsp href="#">Pedir turno por WhatsApp</a>
+          </div>
         </div>
       </div>
     </section>
@@ -205,5 +211,6 @@
   </a>
 
   <script type="module" src="js/landing.js"></script>
+  <script type="module" src="js/turnero.js"></script>
 </body>
 </html>
