@@ -1,0 +1,8 @@
+# Solo hace falta si se despliega con la línea de comandos (npx wrangler deploy).
+# Desde el panel de Cloudflare se pega keepalive.js y se agrega el cron a mano (ver worker/README.md).
+name = "keepalive-turnero-daniel"
+main = "keepalive.js"
+compatibility_date = "2025-01-01"
+
+[triggers]
+crons = ["0 12 * * *"]   # todos los días a las 12:00 UTC (9:00 en Argentina)

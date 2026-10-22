@@ -1,0 +1,15 @@
+# Cabeceras de Cloudflare Pages
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# El service worker nunca se cachea, para que las actualizaciones lleguen enseguida
+/panel/sw.js
+  Cache-Control: no-cache
+
+# Páginas privadas: que no aparezcan en Google
+/panel/*
+  X-Robots-Tag: noindex, nofollow
+/turno.html
+  X-Robots-Tag: noindex, nofollow
