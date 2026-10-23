@@ -3,3 +3,6 @@ node_modules/
 .env
 .dev.vars
 .wrangler/
+
+# Capturas del manual (se regeneran con docs/manual/capturas.cjs)
+docs/manual/img/
