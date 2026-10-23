@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>Manual de uso · Turnero y panel · Daniel Gonzalez</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --azul: #0B4380; --azul-osc: #08305c; --claro: #dbe6f3; --suave: #EEF2F7; --texto: #2b3440; --gris: #55606e; --rojo: #e8453c; --verde: #1f9d55; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Montserrat, Arial, sans-serif; color: var(--texto); font-size: 10pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .pagina { width: 210mm; height: 297mm; padding: 15mm 16mm 16mm; position: relative; overflow: hidden; break-after: page; display: flex; flex-direction: column; }
+  .pagina:last-child { break-after: auto; }
+  h1 { font-size: 21pt; line-height: 1.15; color: var(--azul); margin: 0 0 3mm; }
+  h2 { font-size: 15pt; line-height: 1.2; color: var(--azul); margin: 0 0 2mm; }
+  h3 { font-size: 10.5pt; color: var(--azul); margin: 0 0 1.5mm; }
+  p { margin: 0 0 2.5mm; }
+  .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--azul); margin-bottom: 1mm; }
+  .lead { font-size: 10.5pt; color: var(--gris); }
+
+  /* Encabezado y pie de cada página */
+  .cab { display: flex; align-items: center; justify-content: space-between; gap: 4mm; border-bottom: 1.4px solid #d5dde8; padding-bottom: 3mm; margin-bottom: 6mm; font-size: 8pt; color: var(--gris); }
+  .cab img { height: 7.5mm; }
+  .cab b { color: var(--azul); }
+  .pie { position: absolute; left: 16mm; right: 16mm; bottom: 8mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8793a1; }
+
+  /* Portada */
+  .portada { padding: 0; background: #fff; justify-content: center; align-items: center; text-align: center; }
+  .portada .arco1 { position: absolute; width: 150mm; height: 150mm; border: 16mm solid var(--azul); border-radius: 50%; top: -75mm; right: -55mm; }
+  .portada .arco2 { position: absolute; width: 110mm; height: 110mm; border: 13mm solid var(--azul); border-radius: 50%; bottom: -55mm; left: -40mm; }
+  .portada .logo { width: 108mm; margin-bottom: 20mm; position: relative; }
+  .portada h1 { font-size: 30pt; position: relative; }
+  .portada .sub { font-size: 14pt; color: var(--gris); position: relative; margin-bottom: 12mm; }
+  .portada .para { display: inline-block; background: var(--azul); color: #fff; font-weight: 600; padding: 2.5mm 8mm; border-radius: 99px; position: relative; font-size: 10.5pt; }
+  .portada .firma { position: absolute; bottom: 12mm; left: 80mm; right: 14mm; font-size: 8.5pt; color: var(--gris); text-align: right; line-height: 1.6; }
+
+  /* Flujo de 4 pasos */
+  .flujo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; margin: 3mm 0 6mm; }
+  .flujo > div { background: var(--suave); border-radius: 3.5mm; padding: 4mm 3.2mm; position: relative; font-size: 8.8pt; }
+  .flujo > div:not(:last-child)::after { content: "›"; position: absolute; right: -3.6mm; top: 50%; transform: translateY(-50%); font-size: 18pt; color: var(--azul); font-weight: 700; z-index: 2; }
+  .flujo .n { width: 7mm; height: 7mm; border-radius: 50%; background: var(--azul); color: #fff; display: grid; place-items: center; font-weight: 700; margin-bottom: 2mm; }
+  .flujo b { display: block; color: var(--azul); margin-bottom: 1mm; font-size: 9.2pt; }
+
+  /* Estados */
+  table { border-collapse: collapse; width: 100%; font-size: 9pt; }
+  td, th { padding: 2mm 2.5mm; border-bottom: 1px solid #e1e7ef; text-align: left; vertical-align: top; }
+  th { color: var(--azul); font-size: 8.5pt; text-transform: uppercase; letter-spacing: .06em; }
+  .chip { display: inline-block; font-size: 8pt; font-weight: 700; padding: .6mm 2.8mm; border-radius: 99px; white-space: nowrap; }
+  .c-pend { background: #fff3cd; color: #7a5b00; } .c-conf { background: var(--claro); color: var(--azul-osc); }
+  .c-asis { background: #d9f2e3; color: #14683b; } .c-aus { background: #fdecea; color: #b3261e; } .c-canc { background: #e6e9ee; color: #55606e; }
+
+  /* Pantallas de celular + notas numeradas */
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 9mm; flex: 1; min-height: 0; }
+  .col { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+  .col h3 { align-self: stretch; text-align: center; margin-bottom: 2.5mm; }
+  .tel { width: var(--w, 60mm); border-radius: 6.5mm; border: 2mm solid #1c2733; overflow: hidden; background: #1c2733; box-shadow: 0 2mm 5mm rgba(11, 67, 128, .22); flex: none; }
+  .tel img { display: block; width: 100%; height: auto; }
+  .notas { list-style: none; counter-reset: n; padding: 0; margin: 4mm 0 0; font-size: 8.8pt; line-height: 1.42; align-self: stretch; }
+  .notas li { counter-increment: n; display: grid; grid-template-columns: 5.6mm 1fr; gap: 2.4mm; margin-bottom: 1.9mm; }
+  .notas li::before { content: counter(n); background: var(--rojo); color: #fff; border-radius: 50%; width: 5.2mm; height: 5.2mm; display: grid; place-items: center; font-weight: 700; font-size: 7.6pt; margin-top: .4mm; }
+  .una { display: grid; grid-template-columns: auto 1fr; gap: 10mm; align-items: start; flex: 1; }
+  .una > .tel { --w: 68mm; }
+  .una .col h3 { text-align: left; }
+  .una .col { align-items: stretch; }
+  .num { display: inline-grid; place-items: center; width: 4.6mm; height: 4.6mm; border-radius: 50%; background: var(--rojo); color: #fff; font-weight: 700; font-size: 7pt; vertical-align: 1px; }
+
+  /* Cajas */
+  .tip { background: #eaf3ff; border-left: 1.4mm solid var(--azul); border-radius: 0 2.5mm 2.5mm 0; padding: 2.6mm 3.6mm; font-size: 8.8pt; margin: 2mm 0 3mm; }
+  .tip b { color: var(--azul); }
+  .aviso { background: #fff7e0; border-left: 1.4mm solid #e0a100; border-radius: 0 2.5mm 2.5mm 0; padding: 2.6mm 3.6mm; font-size: 8.8pt; margin: 2mm 0 3mm; }
+  .pasos { margin: 0 0 3mm; padding-left: 5mm; font-size: 9.2pt; } .pasos li { margin-bottom: 1.2mm; }
+  ul.simple { margin: 0 0 3mm; padding-left: 4.5mm; font-size: 9.2pt; } ul.simple li { margin-bottom: 1mm; }
+
+  /* Burbuja de WhatsApp */
+  .chat { background: #ece5dd; border-radius: 3mm; padding: 3mm; margin: 2mm 0 3mm; }
+  .chat small { display: block; font-size: 7.3pt; font-weight: 600; color: #667781; margin-bottom: 1.6mm; letter-spacing: .02em; }
+  .burbuja { background: #d9fdd3; border-radius: 2.5mm 2.5mm 0 2.5mm; padding: 2.4mm 3.2mm; font-size: 8.4pt; line-height: 1.4; color: #111b21; box-shadow: 0 .3mm .6mm rgba(0,0,0,.13); margin-left: 8mm; }
+  .burbuja.rec { background: #fff; border-radius: 2.5mm 2.5mm 2.5mm 0; margin: 0 8mm 0 0; }
+  .burbuja u { color: #027eb5; word-break: break-all; }
+  .burbuja .h { display: block; text-align: right; font-size: 6.8pt; color: #667781; margin-top: .8mm; }
+  .var { font-family: ui-monospace, Menlo, monospace; background: var(--suave); padding: .3mm 1.4mm; border-radius: 1mm; font-size: 8.3pt; color: var(--azul-osc); }
+
+  .nav-demo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; margin: 2mm 0 3mm; }
+  .nav-demo div { background: var(--suave); border-radius: 2.5mm; padding: 2.4mm 2mm; text-align: center; font-size: 8.2pt; }
+  .nav-demo b { display: block; color: var(--azul); font-size: 8.8pt; }
+  .faq { display: grid; gap: 2.6mm; }
+  .faq > div { background: var(--suave); border-radius: 3mm; padding: 3mm 4mm; break-inside: avoid; }
+  .faq b { display: block; color: var(--azul); font-size: 9.4pt; margin-bottom: .6mm; }
+  .faq span { font-size: 8.9pt; }
+  .faq span b { display: inline; font-size: inherit; margin: 0; }
+  .contacto { margin-top: 4mm; background: var(--azul); color: #fff; border-radius: 3.5mm; padding: 5mm 6mm; display: flex; align-items: center; gap: 5mm; }
+  .contacto img { width: 14mm; flex: none; }
+  .contacto a { color: #fff; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- =================== 1. PORTADA =================== -->
+<section class="pagina portada">
+  <div class="arco1"></div><div class="arco2"></div>
+  <img class="logo" src="../../assets/logo.svg" alt="Daniel Gonzalez · Consultorio Optométrico">
+  <h1>Manual de uso</h1>
+  <div class="sub">Turnero online y panel de turnos</div>
+  <div class="para">Para Daniel Gonzalez Cafaro</div>
+  <div class="firma">Desarrollado por <b>Martin Romero Studio</b><br>martinromerostudio.com.ar · Octubre 2026 · Versión 1.0</div>
+</section>
+
+<!-- =================== 2. CÓMO FUNCIONA =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Manual de uso</b> · Turnero y panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Para empezar</div>
+  <h1>¿Cómo funciona todo?</h1>
+  <p class="lead">Tus pacientes reservan solos desde la página web y vos lo manejás todo desde tu celular, con un panel que se instala como una app. No hace falta registrarse ni pagar nada por mensaje: los avisos viajan por tu WhatsApp de siempre.</p>
+
+  <h3>El camino de un turno</h3>
+  <div class="flujo">
+    <div><span class="n">1</span><b>El paciente reserva</b>Entra a la web, elige el motivo, el día y el horario, y deja su nombre y WhatsApp.</div>
+    <div><span class="n">2</span><b>Te llega el pedido</b>El paciente te envía un WhatsApp con la solicitud y un link directo al turno.</div>
+    <div><span class="n">3</span><b>Vos decidís</b>Abrís el link, tocás <i>Confirmar y avisar</i> o <i>Rechazar y avisar</i>.</div>
+    <div><span class="n">4</span><b>El paciente se entera</b>Se abre tu WhatsApp con la respuesta lista. Solo tocás <i>Enviar</i>.</div>
+  </div>
+  <div class="aviso"><b>Importante:</b> apenas el paciente pide un turno, ese horario queda <b>reservado</b> y nadie más puede tomarlo. Se libera solo si lo rechazás o si el paciente lo cancela.</div>
+
+  <h3>Los estados de un turno</h3>
+  <table>
+    <tr><th style="width:34mm">Estado</th><th>Qué significa</th></tr>
+    <tr><td><span class="chip c-pend">Pendiente</span></td><td>El paciente lo pidió y espera tu respuesta. El horario está reservado.</td></tr>
+    <tr><td><span class="chip c-conf">Confirmado</span></td><td>Vos lo aceptaste (o lo cargaste vos mismo). El paciente ya lo sabe.</td></tr>
+    <tr><td><span class="chip c-asis">Asistió</span></td><td>El paciente vino. Lo marcás vos desde la agenda.</td></tr>
+    <tr><td><span class="chip c-aus">No vino</span></td><td>El paciente faltó. Lo marcás vos desde la agenda.</td></tr>
+    <tr><td><span class="chip c-canc">Cancelado</span></td><td>Lo canceló el paciente (desde su link) o lo cancelaste vos. El horario queda libre.</td></tr>
+    <tr><td><span class="chip c-canc">Rechazado</span></td><td>No pudiste atenderlo en ese horario. Se libera y el paciente puede elegir otro.</td></tr>
+  </table>
+
+  <h3 style="margin-top:4mm">Qué necesitás</h3>
+  <ul class="simple">
+    <li>Tu <b>celular con internet</b> y WhatsApp.</li>
+    <li>El <b>panel instalado</b> en tu celular (te explicamos cómo en la página 8).</li>
+    <li>Tu <b>email y contraseña</b> del panel, que te entrega Martin.</li>
+  </ul>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>2</span></div>
+</section>
+
+<!-- =================== 3. WEB 1 =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 1</b> · Lo que ve tu paciente</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 1 · Lo que ve tu paciente</div>
+  <h1>La página web</h1>
+  <p class="lead">Es la puerta de entrada: tus pacientes la abren desde el celular (por Instagram, Google o el link que les pases) y reservan sin llamar ni escribir.</p>
+  <div class="dos">
+    <div class="col"><h3>Inicio</h3>
+      <div class="tel"><img src="img/web-1-inicio.png" alt="Inicio de la web"></div>
+      <ol class="notas">
+        <li><span><b>Reservar turno</b> (arriba): siempre visible. Lleva directo al turnero.</span></li>
+        <li><span><b>Reservar turno</b> (en el inicio): el mismo botón, bien a la vista.</span></li>
+        <li><span><b>Botón verde de WhatsApp</b>: para consultas generales. Abre un chat con tu número.</span></li>
+      </ol>
+    </div>
+    <div class="col"><h3>Servicios</h3>
+      <div class="tel"><img src="img/web-2-servicios.png" alt="Servicios"></div>
+      <ol class="notas">
+        <li><span><b>Nombre del servicio</b>: sale de los <i>Motivos</i> que cargaste en el panel.</span></li>
+        <li><span><b>Duración</b>: cuánto dura la consulta (también la define cada motivo).</span></li>
+        <li><span><b>Reservar</b>: abre el turnero con ese servicio ya elegido.</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:3mm"><b>Tip:</b> la página también explica qué hace un optometrista, dónde atendés (con mapa y botón “Cómo llegar”) y responde las preguntas más comunes. Todo eso ya viene armado.</div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>3</span></div>
+</section>
+
+<!-- =================== 4. RESERVA 1/2 =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 1</b> · Lo que ve tu paciente</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 1 · Lo que ve tu paciente</div>
+  <h1>Reservar un turno <span style="font-weight:500;color:var(--gris);font-size:14pt">(1 de 2)</span></h1>
+  <p class="lead">El turnero tiene cuatro pasos y no pide crear ninguna cuenta. Arriba, un indicador muestra en qué paso va el paciente.</p>
+  <div class="dos" style="--w:68mm">
+    <div class="col"><h3>Paso 1 · Motivo</h3>
+      <div class="tel"><img src="img/web-3-motivo.png" alt="Elegir motivo"></div>
+      <ol class="notas">
+        <li><span><b>Indicador de pasos</b>: Motivo, Día, Horario y Datos.</span></li>
+        <li><span><b>Motivo de la consulta</b>: el paciente toca el que corresponda. Cada uno tiene su duración.</span></li>
+      </ol>
+    </div>
+    <div class="col"><h3>Paso 2 · Día</h3>
+      <div class="tel"><img src="img/web-4-dia.png" alt="Elegir día"></div>
+      <ol class="notas">
+        <li><span><b>Mes</b>: con las flechas ‹ › se mueve entre meses (hasta la anticipación máxima que configures).</span></li>
+        <li><span><b>Días en azul</b>: solo se pueden tocar los días con horarios libres.</span></li>
+        <li><span>Los días en gris no están disponibles: no atendés, están bloqueados o ya no quedan horarios.</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>4</span></div>
+</section>
+
+<!-- =================== 5. RESERVA 2/2 =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 1</b> · Lo que ve tu paciente</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 1 · Lo que ve tu paciente</div>
+  <h1>Reservar un turno <span style="font-weight:500;color:var(--gris);font-size:14pt">(2 de 2)</span></h1>
+  <div class="dos">
+    <div class="col"><h3>Paso 3 · Horario</h3>
+      <div class="tel"><img src="img/web-5-horario.png" alt="Elegir horario"></div>
+      <ol class="notas">
+        <li><span><b>Horarios libres</b>: solo aparecen los que están disponibles para ese motivo, según su duración. Si otra persona reservó mientras tanto, desaparecen solos.</span></li>
+      </ol>
+      <div class="tip" style="align-self:stretch"><b>Si dos personas eligen el mismo horario a la vez</b>, el sistema le da el lugar a la primera y a la otra le avisa “Ese horario se acaba de ocupar” para que elija otro. Nunca se pisan dos turnos.</div>
+    </div>
+    <div class="col"><h3>Paso 4 · Tus datos</h3>
+      <div class="tel" style="--w:50mm"><img src="img/web-6-datos.png" alt="Datos del paciente"></div>
+      <ol class="notas">
+        <li><span><b>Resumen</b> de lo elegido.</span></li>
+        <li><span><b>Nombre y apellido</b> (obligatorio).</span></li>
+        <li><span><b>WhatsApp</b> (obligatorio): lo usás para avisarle. Acepta cualquier formato.</span></li>
+        <li><span><b>Aviso de datos</b>: el paciente acepta el uso de sus datos (Ley 25.326). Podés editar el texto.</span></li>
+        <li><span><b>Verificación anti-spam</b>: evita que robots llenen tu agenda.</span></li>
+        <li><span><b>Solicitar turno</b>: envía el pedido.</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>5</span></div>
+</section>
+
+<!-- =================== 6. ÉXITO =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 1</b> · Lo que ve tu paciente</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 1 · Lo que ve tu paciente</div>
+  <h1>Solicitud registrada</h1>
+  <p class="lead">Al terminar, el paciente ve esta pantalla. Su turno queda <b>pendiente</b> hasta que vos lo confirmes.</p>
+  <div class="una">
+    <div class="tel"><img src="img/web-7-exito.png" alt="Solicitud registrada"></div>
+    <div class="col">
+      <ol class="notas" style="margin-top:0">
+        <li><span><b>Confirmación en pantalla</b>: el día, la hora y el motivo que eligió.</span></li>
+        <li><span><b>Enviar solicitud a Daniel</b>: abre WhatsApp con un mensaje ya escrito para tu número. El paciente solo toca <i>Enviar</i>. <b>Es el aviso que vos recibís.</b></span></li>
+        <li><span><b>Agregar a mi calendario</b>: descarga el turno para guardarlo en el calendario del celular.</span></li>
+        <li><span><b>Ver o cancelar mi turno</b>: link privado para consultar o cancelar (se ve en la página siguiente).</span></li>
+      </ol>
+      <h3 style="margin-top:3mm">Lo que te llega por WhatsApp</h3>
+      <div class="chat"><small>DE: LUCÍA FERNÁNDEZ (PACIENTE)</small>
+        <div class="burbuja rec">Hola Daniel, solicité un turno: Control visual, lunes 26 de octubre 09:30. Lucía Fernández, OSDE. Confirmalo acá: <u>https://…/panel/?turno=…</u><span class="h">9:21</span></div></div>
+      <div class="tip"><b>El link del final es la clave:</b> al tocarlo se abre tu panel directamente en ese turno, listo para confirmar o rechazar.</div>
+      <div class="aviso"><b>Un solo pedido por persona:</b> para evitar abusos, cada WhatsApp puede tener un único turno pendiente a la vez. Si intenta pedir otro, el sistema se lo explica.</div>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>6</span></div>
+</section>
+
+<!-- =================== 7. VER / CANCELAR =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 1</b> · Lo que ve tu paciente</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 1 · Lo que ve tu paciente</div>
+  <h1>Ver o cancelar un turno</h1>
+  <p class="lead">Cada paciente tiene un link privado a su turno. No necesita cuenta ni contraseña: con el link alcanza.</p>
+  <div class="una">
+    <div class="tel"><img src="img/web-8-mi-turno.png" alt="Mi turno"></div>
+    <div class="col">
+      <ol class="notas" style="margin-top:0">
+        <li><span><b>Estado del turno</b>: Pendiente, Confirmado, etc.</span></li>
+        <li><span><b>Datos del turno</b>: paciente, motivo, día y hora.</span></li>
+        <li><span><b>Cancelar turno</b>: libera el horario al instante y le ofrece un botón para avisarte por WhatsApp.</span></li>
+      </ol>
+      <h3 style="margin-top:3mm">¿Hasta cuándo puede cancelar?</h3>
+      <p>Hasta <b>12 horas antes</b> del turno (podés cambiar ese número en <i>Ajustes</i>). Si falta menos, en lugar del botón aparece el mensaje <i>“Para cancelar comunicate con Daniel”</i> con un botón de WhatsApp.</p>
+      <h3>Lo que te llega cuando cancela</h3>
+      <div class="chat"><small>DE: MARTÍN ACOSTA (PACIENTE)</small>
+        <div class="burbuja rec">Hola Daniel, cancelé mi turno del lunes 26 de octubre a las 10:00. Martín Acosta<span class="h">18:42</span></div></div>
+      <div class="tip"><b>Aunque el paciente no te escriba,</b> te enterás igual: los turnos cancelados por pacientes aparecen destacados en <i>Pendientes</i> durante 24 horas.</div>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>7</span></div>
+</section>
+
+<!-- =================== 8. PANEL: INSTALAR Y ENTRAR =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>Instalar el panel y entrar</h1>
+  <div class="una">
+    <div class="tel"><img src="img/panel-1-login.png" alt="Ingreso al panel"></div>
+    <div class="col">
+      <h3>1 · Abrí el panel</h3>
+      <p>Desde el navegador del celular, entrá a la dirección de tu página y agregá <b>/panel/</b> al final.<br><span class="var">tudominio.com.ar/panel/</span></p>
+      <h3>2 · Instalalo como una app</h3>
+      <p style="margin-bottom:1mm"><b>En Android (Chrome):</b></p>
+      <ol class="pasos"><li>Tocá el menú <b>⋮</b> (arriba a la derecha).</li><li>Elegí <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</li></ol>
+      <p style="margin-bottom:1mm"><b>En iPhone (Safari):</b></p>
+      <ol class="pasos"><li>Tocá el botón <b>Compartir</b>.</li><li>Elegí <b>Agregar a inicio</b>.</li></ol>
+      <p>Te queda un ícono en el celular, como cualquier otra app.</p>
+      <h3>3 · Ingresá</h3>
+      <ol class="notas" style="margin-top:1mm">
+        <li><span><b>Email</b> que te dio Martin.</span></li>
+        <li><span><b>Contraseña</b>.</span></li>
+        <li><span><b>Ingresar</b>. Solo lo hacés una vez: la sesión queda abierta en tu celular.</span></li>
+      </ol>
+      <div class="tip"><b>No hace falta que vuelvas a entrar</b> cada vez. Si algún día te pide la contraseña de nuevo, usá la misma. Si la olvidaste, escribile a Martin.</div>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>8</span></div>
+</section>
+
+<!-- =================== 9. PENDIENTES =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>Pendientes: tu pantalla de inicio</h1>
+  <p class="lead">Acá aparecen las solicitudes que esperan tu respuesta. Es lo primero que ves al abrir el panel.</p>
+  <div class="dos" style="--w:55mm">
+    <div class="col"><h3>Solicitudes</h3>
+      <div class="tel"><img src="img/panel-2-pendientes.png" alt="Pendientes"></div>
+      <ol class="notas">
+        <li><span><b>Contador</b>: cuántas solicitudes tenés. También se ve en el globo rojo del menú (5).</span></li>
+        <li><span><b>Datos del pedido</b>: día, hora, motivo, paciente, WhatsApp, obra social y comentario. Tocá para ver el detalle.</span></li>
+        <li><span><b>Confirmar y avisar</b>: queda confirmado y se abre WhatsApp con la respuesta lista.</span></li>
+        <li><span><b>Rechazar y avisar</b>: libera el horario y le sugiere al paciente elegir otro.</span></li>
+        <li><span><b>Menú inferior</b>: Pendientes, Agenda, Agendar y Config.</span></li>
+      </ol>
+    </div>
+    <div class="col"><h3>Cancelaciones de pacientes</h3>
+      <div class="tel"><img src="img/panel-3-cancelado.png" alt="Cancelados por pacientes"></div>
+      <ol class="notas">
+        <li><span>Debajo de las solicitudes, el panel muestra los <b>turnos que cancelaron los pacientes</b> en las últimas 24 horas.</span></li>
+        <li><span>Salen en gris: el horario <b>ya está libre</b>. Es solo para que te enteres.</span></li>
+      </ol>
+      <h3 style="align-self:stretch;margin-top:2mm">Lo que recibe el paciente</h3>
+      <div class="chat" style="align-self:stretch"><small>PARA: LUCÍA FERNÁNDEZ</small>
+        <div class="burbuja">Hola Lucía, tu turno del lunes 26 de octubre a las 09:30 en Consultorios Delta (Cantilo e/ 13 A y 13 B #146, City Bell) está confirmado. Si necesitás cancelar: <u>https://…/turno.html?t=…</u><span class="h">9:25 ✓✓</span></div></div>
+      <p style="font-size:8.4pt;color:var(--gris)">Vos solo tocás <i>Enviar</i> en WhatsApp. Si el celular bloqueara la ventana, aparece un botón <b>Avisar por WhatsApp</b>.</p>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>9</span></div>
+</section>
+
+<!-- =================== 10. DETALLE =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>El detalle de un turno</h1>
+  <p class="lead">Tocando cualquier turno (en Pendientes o en la Agenda) se abre una ventana con todos sus datos y las acciones posibles.</p>
+  <div class="dos" style="--w:66mm">
+    <div class="col"><h3>Un turno pendiente</h3>
+      <div class="tel"><img src="img/panel-4-detalle-pendiente.png" alt="Detalle de turno pendiente"></div>
+      <ol class="notas">
+        <li><span><b>Estado</b> del turno.</span></li>
+        <li><span><b>Datos completos</b>: motivo, día, hora, WhatsApp, obra social, comentario y origen (web o cargado por vos).</span></li>
+        <li><span><b>Confirmar y avisar</b>.</span></li>
+        <li><span><b>Rechazar y avisar</b> (te pide confirmar antes).</span></li>
+        <li><span><b>WhatsApp al paciente</b>: abre un chat con él, sin mensaje armado.</span></li>
+      </ol>
+    </div>
+    <div class="col"><h3>Un turno confirmado</h3>
+      <div class="tel"><img src="img/panel-7-detalle-confirmado.png" alt="Detalle de turno confirmado"></div>
+      <ol class="notas">
+        <li><span><b>WhatsApp al paciente</b>.</span></li>
+        <li><span><b>Asistió</b>: lo marcás cuando el paciente vino.</span></li>
+        <li><span><b>No vino</b>: si faltó.</span></li>
+        <li><span><b>Cancelar turno</b>: lo cancelás vos. Libera el horario y abre WhatsApp con un aviso para el paciente (te pide confirmar antes).</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>10</span></div>
+</section>
+
+<!-- =================== 11. AGENDA =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>La agenda</h1>
+  <p class="lead">Todos tus turnos ordenados por día, con colores para entender el estado de un vistazo.</p>
+  <div class="dos">
+    <div class="col"><h3>Vista semana</h3>
+      <div class="tel"><img src="img/panel-5-agenda-semana.png" alt="Agenda semanal"></div>
+      <ol class="notas">
+        <li><span><b>Día / Semana</b>: cambia entre las dos vistas.</span></li>
+        <li><span><b>Rango de fechas</b> que estás viendo.</span></li>
+        <li><span><b>Día</b>: cuántos turnos tiene y tu horario de atención.</span></li>
+        <li><span><b>Estado</b> de cada turno, con su color.</span></li>
+      </ol>
+    </div>
+    <div class="col"><h3>Vista día</h3>
+      <div class="tel"><img src="img/panel-6-agenda-dia.png" alt="Agenda diaria"></div>
+      <ol class="notas">
+        <li><span><b>+ Agendar</b>: carga un turno en el día que estás viendo.</span></li>
+        <li><span><b>Hoy</b>: vuelve al día de hoy.</span></li>
+        <li><span><b>Flechas</b> ‹ ›: día anterior y siguiente (en semana, avanzan 7 días).</span></li>
+        <li><span><b>Atendés</b>: tus horarios de ese día. Los bloqueos aparecen en amarillo.</span></li>
+        <li><span><b>Turno</b>: tocalo para ver el detalle.</span></li>
+      </ol>
+    </div>
+  </div>
+  <table style="margin-top:2mm">
+    <tr><th colspan="5">Colores de la agenda</th></tr>
+    <tr><td><span class="chip c-pend">Pendiente</span></td><td><span class="chip c-conf">Confirmado</span></td><td><span class="chip c-asis">Asistió</span></td><td><span class="chip c-aus">No vino</span></td><td><span class="chip c-canc">Cancelado</span></td></tr>
+  </table>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>11</span></div>
+</section>
+
+<!-- =================== 12. AGENDAR =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>Agendar un turno vos mismo</h1>
+  <p class="lead">Para los pacientes que te piden turno por WhatsApp o por teléfono. El turno queda <b>confirmado</b> y ese horario deja de ofrecerse en la web.</p>
+  <div class="una">
+    <div class="tel" style="--w:62mm"><img src="img/panel-8-agendar.png" alt="Agendar turno"></div>
+    <div class="col">
+      <p style="margin-bottom:1.5mm"><b>Cómo se usa:</b> tocá <b>Agendar</b> en el menú de abajo (o <b>+ Agendar</b> desde la agenda).</p>
+      <ol class="notas" style="margin-top:1mm">
+        <li><span><b>Motivo</b>: define cuánto dura el turno.</span></li>
+        <li><span><b>Día</b>: tocá el campo y elegí la fecha.</span></li>
+        <li><span><b>Horario</b>: solo aparecen los libres. Tocá uno (queda en azul).</span></li>
+        <li><span><b>Nombre y apellido</b> del paciente.</span></li>
+        <li><span><b>WhatsApp</b>: con característica, en cualquier formato (ej. 221 555-1234).</span></li>
+        <li><span><b>Agendar turno</b>: lo guarda.</span></li>
+      </ol>
+      <p style="margin-top:2mm">Obra social y comentario son opcionales.</p>
+      <div class="tip"><b>Después de guardar</b> te aparece el botón <b>Avisar al paciente</b>, que abre WhatsApp con la confirmación lista para enviar.</div>
+      <div class="chat"><small>PARA: GABRIELA NÚÑEZ</small>
+        <div class="burbuja">Hola Gabriela, tu turno del lunes 26 de octubre a las 09:00 en Consultorios Delta (Cantilo e/ 13 A y 13 B #146, City Bell) está confirmado. Si necesitás cancelar: <u>https://…/turno.html?t=…</u><span class="h">9:30 ✓✓</span></div></div>
+      <div class="aviso"><b>Si el horario ya se ocupó</b> (por ejemplo, justo lo reservó alguien desde la web), el panel te lo avisa y no pisa el otro turno.</div>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>12</span></div>
+</section>
+
+<!-- =================== 13. CONFIG 1/2 =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>Configuración <span style="font-weight:500;color:var(--gris);font-size:14pt">(1 de 3)</span></h1>
+  <p class="lead">Desde <b>Config</b> manejás todo el turnero sin pedirle nada a nadie. Los cambios se aplican al instante en la web.</p>
+  <div class="dos">
+    <div class="col"><h3>Horarios</h3>
+      <div class="tel"><img src="img/panel-9-horarios.png" alt="Horarios"></div>
+      <ol class="notas">
+        <li><span><b>Pestañas</b>: Horarios, Motivos, Bloqueos y Ajustes.</span></li>
+        <li><span><b>+ Franja</b>: agrega un tramo de atención a ese día.</span></li>
+        <li><span><b>Desde / hasta</b>: tocá la hora para cambiarla. Se guarda sola.</span></li>
+        <li><span><b>Tacho</b>: elimina la franja.</span></li>
+      </ol>
+      <div class="tip" style="align-self:stretch"><b>¿Cortás al mediodía?</b> Cargá dos franjas el mismo día (por ejemplo 9 a 13 y 15 a 19). Un día sin franjas es un día sin atención.</div>
+    </div>
+    <div class="col"><h3>Motivos</h3>
+      <div class="tel"><img src="img/panel-10-motivos.png" alt="Motivos"></div>
+      <ol class="notas">
+        <li><span><b>Nombre y descripción</b>: es lo que ve el paciente.</span></li>
+        <li><span><b>Duración</b>: en minutos. Define cuánto espacio ocupa en la agenda.</span></li>
+        <li><span><b>Activo</b>: si lo destildás, deja de aparecer en la web.</span></li>
+        <li><span><b>Guardar</b>. Abajo de todo está <i>Nuevo motivo</i> para crear otro.</span></li>
+      </ol>
+      <p style="font-size:8.4pt;color:var(--gris)">Si un motivo ya tuvo turnos no se puede eliminar: desactivalo.</p>
+    </div>
+  </div>
+  <p style="font-size:8pt;color:var(--gris);margin-top:2mm">Nota: el formato de la hora (24 h o a. m./p. m.) y de la fecha depende de la configuración de tu celular.</p>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>13</span></div>
+</section>
+
+<!-- =================== 14. CONFIG 2/2 =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>Configuración <span style="font-weight:500;color:var(--gris);font-size:14pt">(2 de 3)</span></h1>
+  <div class="dos">
+    <div class="col"><h3>Bloqueos</h3>
+      <div class="tel" style="--w:52mm"><img src="img/panel-11-bloqueos.png" alt="Bloqueos"></div>
+      <ol class="notas">
+        <li><span><b>Desde / Hasta</b>: las fechas que no atendés.</span></li>
+        <li><span><b>Todo el día</b>: tildado bloquea los días completos. Destildalo para bloquear solo unas horas.</span></li>
+        <li><span><b>Nota</b>: para acordarte (ej. “Vacaciones”).</span></li>
+        <li><span><b>Agregar bloqueo</b>.</span></li>
+        <li><span><b>Bloqueos vigentes</b>: tocá el tacho para eliminar uno.</span></li>
+      </ol>
+      <div class="tip" style="align-self:stretch">Úsalo para vacaciones, feriados o trámites. La web no ofrece turnos en esas fechas.</div>
+    </div>
+    <div class="col"><h3>Ajustes</h3>
+      <div class="tel" style="--w:52mm"><img src="img/panel-12-ajustes.png" alt="Ajustes"></div>
+      <ol class="notas">
+        <li><span><b>Tu WhatsApp</b>: el número al que te escriben los pacientes.</span></li>
+        <li><span><b>Anticipación máxima</b>: hasta cuántos días adelante se puede reservar.</span></li>
+        <li><span><b>Horas mínimas para cancelar</b>: hasta cuántas horas antes puede cancelar el paciente solo.</span></li>
+        <li><span><b>Intervalo</b>: cada cuántos minutos arranca un turno (ej. cada 15).</span></li>
+      </ol>
+      <p style="font-size:8.4pt;color:var(--gris)">Más abajo están la dirección, el link del mapa y los textos de los mensajes.</p>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>14</span></div>
+</section>
+
+<!-- =================== 15. MENSAJES =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Parte 2</b> · Tu panel de turnos</span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Parte 2 · Tu panel de turnos</div>
+  <h1>Configuración <span style="font-weight:500;color:var(--gris);font-size:14pt">(3 de 3)</span></h1>
+  <h2 style="font-size:12.5pt">Los mensajes de WhatsApp</h2>
+  <div class="una">
+    <div class="tel" style="--w:64mm"><img src="img/panel-13-mensajes.png" alt="Mensajes"></div>
+    <div class="col">
+      <p>En <b>Ajustes</b>, más abajo, podés editar el texto de cada mensaje automático para que suene como vos.</p>
+      <ol class="notas" style="margin-top:1mm">
+        <li><span><b>Solicitud</b>: lo que te manda el paciente al pedir turno.</span></li>
+        <li><span><b>Confirmación</b>: lo que le mandás cuando confirmás.</span></li>
+        <li><span><b>Rechazo</b>: lo que le mandás cuando rechazás. Invita a elegir otro horario.</span></li>
+      </ol>
+      <p style="margin-top:2mm">Hay un cuarto mensaje, <b>Cancelación</b> (lo que te manda el paciente al cancelar), más abajo. Al final también se edita el <b>aviso de datos personales</b>.</p>
+      <h3 style="margin-top:3mm">Palabras que se reemplazan solas</h3>
+      <table>
+        <tr><td><span class="var">{nombre}</span></td><td>Nombre del paciente</td></tr>
+        <tr><td><span class="var">{dia}</span> <span class="var">{hora}</span></td><td>Día y hora del turno</td></tr>
+        <tr><td><span class="var">{motivo}</span></td><td>Motivo de la consulta</td></tr>
+        <tr><td><span class="var">{obra_social}</span></td><td>Obra social del paciente</td></tr>
+        <tr><td><span class="var">{link_panel}</span></td><td>Link para abrir el turno en tu panel</td></tr>
+        <tr><td><span class="var">{link_turno}</span></td><td>Link privado del paciente a su turno</td></tr>
+        <tr><td><span class="var">{link_turnero}</span></td><td>Link para reservar otro turno</td></tr>
+      </table>
+      <div class="aviso" style="margin-top:3mm"><b>Cuidado:</b> no borres las palabras entre llaves { }. Si las sacás, el mensaje pierde ese dato. Podés cambiar todo el resto.</div>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>15</span></div>
+</section>
+
+<!-- =================== 16. AYUDA =================== -->
+<section class="pagina">
+  <div class="cab"><span><b>Ayuda</b></span><img src="../../assets/logo-isotipo.svg" alt=""></div>
+  <div class="eyebrow">Ayuda</div>
+  <h1>Preguntas frecuentes</h1>
+  <div class="faq">
+    <div><b>Un paciente me escribió por WhatsApp para pedir turno. ¿Qué hago?</b><span>Tocá <i>Agendar</i> en el panel, cargalo y listo: queda confirmado y ese horario no se ofrece más en la web.</span></div>
+    <div><b>Me voy de vacaciones o no atiendo un día. ¿Cómo lo aviso?</b><span><i>Config → Bloqueos</i>: elegí las fechas y agregalas. La web deja de ofrecer turnos ahí. Los turnos que ya estaban cargados no se tocan.</span></div>
+    <div><b>Cambié mis días u horarios de atención.</b><span><i>Config → Horarios</i>: editá, agregá o eliminá franjas. Se aplica al instante.</span></div>
+    <div><b>Quiero que un servicio no aparezca por un tiempo.</b><span><i>Config → Motivos</i>: destildá <i>Activo</i> en ese motivo y guardá.</span></div>
+    <div><b>Un paciente quiere cambiar su turno de día.</b><span>Que cancele el actual desde su link (o cancelalo vos desde la agenda) y reserve otro. El horario viejo queda libre.</span></div>
+    <div><b>No me aparecen los turnos nuevos.</b><span>Tocá <b>⟳</b> (arriba a la derecha) para actualizar y revisá que tengas internet. La pantalla de Pendientes también se actualiza sola cada minuto.</span></div>
+    <div><b>Me olvidé la contraseña o cambié de celular.</b><span>Escribile a Martin. Para usar otro celular, repetí la instalación (página 8) e ingresá con tu email y contraseña.</span></div>
+    <div><b>¿Puedo cambiar mi número de WhatsApp?</b><span>Sí: <i>Config → Ajustes → Tu WhatsApp</i>. Los pacientes verán el nuevo número enseguida.</span></div>
+  </div>
+  <div class="contacto">
+    <img src="../../assets/logo-isotipo-blanco.svg" alt="">
+    <div><b style="font-size:11pt">¿Algo no funciona o querés cambiar algo?</b><br>Escribile a Martin Romero Studio: <a href="https://martinromerostudio.com.ar">martinromerostudio.com.ar</a></div>
+  </div>
+  <div class="pie"><span>Manual de uso · Daniel Gonzalez</span><span>16</span></div>
+</section>
+
+</body>
+</html>
