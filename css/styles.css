@@ -110,19 +110,19 @@ a { color: var(--azul); }
 .cartilla span:nth-child(4) { font-size: 2.6rem; }
 .cartilla span:nth-child(5) { font-size: 1.9rem; }
 .hero__contenido { max-width: 640px; position: relative; }
-.hero__logo { width: 84px; height: 84px; margin-bottom: var(--esp-3); }
+.hero__logo { width: 96px; height: 96px; margin-bottom: var(--esp-3); }
 .hero .lead { font-size: clamp(1.05rem, 2.6vw, 1.3rem); max-width: 34ch; }
 .hero__acciones { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-3); }
 
 /* ---------- Sobre Daniel ---------- */
 .sobre { display: grid; gap: var(--esp-4); align-items: center; }
 .foto {
-  position: relative; aspect-ratio: 4 / 5; max-width: 360px; width: 100%; margin-inline: auto;
+  position: relative; aspect-ratio: 1 / 1; max-width: 380px; width: 100%; margin-inline: auto;
   border-radius: var(--radio); overflow: hidden; background: var(--azul-claro); box-shadow: var(--sombra);
   display: grid; place-items: center;
 }
 .foto__ph { font-size: 4rem; font-weight: 700; color: var(--azul); opacity: .5; }
-.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
 .credenciales { display: flex; flex-wrap: wrap; gap: .5rem; margin: var(--esp-2) 0 var(--esp-3); padding: 0; list-style: none; }
 .credenciales li {
   background: var(--azul-claro); color: var(--azul-oscuro); font-size: .85rem; font-weight: 600;
