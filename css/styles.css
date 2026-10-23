@@ -183,8 +183,25 @@ a { color: var(--azul); }
 .pie { background: var(--azul); color: #dbe6f3; padding-block: var(--esp-4) var(--esp-3); }
 .pie a { color: #fff; }
 .pie__fila { display: grid; gap: var(--esp-3); }
-.pie__enlaces { display: flex; flex-wrap: wrap; gap: var(--esp-2) var(--esp-3); }
-.pie small { display: block; margin-top: var(--esp-3); opacity: .8; }
+.pie__marca { display: flex; align-items: center; gap: var(--esp-2); }
+.pie__marca img { flex: none; }
+.pie__marca strong { display: block; color: #fff; }
+.pie__marca span { display: block; font-size: .88rem; opacity: .85; }
+.pie__redes { display: flex; flex-wrap: wrap; gap: .75rem; }
+.red {
+  display: inline-flex; align-items: center; gap: .6rem; min-height: 48px; padding: .6rem 1.2rem; border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, .55); text-decoration: none; font-weight: 600;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.red svg { width: 22px; height: 22px; flex: none; }
+.red:hover { background: #fff; border-color: #fff; color: var(--azul); }
+.pie__credito {
+  margin: var(--esp-3) 0 0; padding-top: var(--esp-2); border-top: 1px solid rgba(255, 255, 255, .22);
+  font-size: .85rem; opacity: .9; text-align: center;
+}
+.pie__credito a { font-weight: 600; }
+/* En celular, deja lugar para que el botón flotante de WhatsApp no tape el crédito */
+@media (max-width: 767px) { .pie { padding-bottom: calc(var(--esp-3) + 70px); } }
 
 /* ---------- Botón flotante de WhatsApp ---------- */
 .wsp-flotante {
@@ -211,6 +228,7 @@ a { color: var(--azul); }
   .ubicacion { grid-template-columns: 1fr 1.3fr; align-items: center; gap: var(--esp-4); }
   .mapa { height: 400px; }
   .pie__fila { grid-template-columns: 1fr auto; align-items: center; }
+  .pie__credito { text-align: left; }
   .cartilla span:nth-child(1) { font-size: 10rem; }
   .cartilla span:nth-child(2) { font-size: 7rem; }
   .cartilla span:nth-child(3) { font-size: 5rem; }
