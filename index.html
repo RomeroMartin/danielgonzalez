@@ -33,6 +33,7 @@
     "name": "Daniel Gonzalez - Consultorio Optométrico",
     "url": "https://danielgonzalez-8cc.pages.dev/",
     "image": "https://danielgonzalez-8cc.pages.dev/assets/og-image.png",
+    "logo": "https://danielgonzalez-8cc.pages.dev/assets/logo.png",
     "inLanguage": "es-AR",
     "medicalSpecialty": "Optometry",
     "areaServed": "City Bell, La Plata",
@@ -57,18 +58,10 @@
 </head>
 <body>
 
-  <!-- Isotipo provisorio (círculo con "g"). Reemplazar por el logo original. -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="isotipo" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="28" fill="#fff" stroke="currentColor" stroke-width="6"/>
-      <text x="32" y="45" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="40" fill="currentColor">g</text>
-    </symbol>
-  </svg>
-
   <header class="encabezado">
     <div class="contenedor encabezado__fila">
       <a class="marca" href="#inicio" aria-label="Daniel Gonzalez, Consultorio Optométrico">
-        <svg class="marca__iso" aria-hidden="true"><use href="#isotipo"/></svg>
+        <img class="marca__iso" src="assets/logo-isotipo.svg" alt="" width="40" height="40">
         <span class="marca__texto">
           <span class="marca__nombre">Daniel Gonzalez</span>
           <span class="marca__rol">Consultorio Optométrico</span>
@@ -86,7 +79,7 @@
       </div>
       <div class="contenedor">
         <div class="hero__contenido">
-          <svg class="hero__logo" style="color:var(--azul)" aria-hidden="true"><use href="#isotipo"/></svg>
+          <img class="hero__logo" src="assets/logo-isotipo.svg" alt="Daniel Gonzalez" width="96" height="96">
           <span class="eyebrow">Daniel Gonzalez · Consultorio Optométrico</span>
           <h1>Atención visual primaria</h1>
           <p class="lead">Cuidá tu vista con un profesional, cerca de casa, en City Bell. Sacá tu turno online en menos de un minuto.</p>
@@ -103,8 +96,7 @@
       <div class="contenedor sobre">
         <div class="foto reveal">
           <span class="foto__ph" aria-hidden="true">DG</span>
-          <!-- Foto de Daniel: guardar como assets/daniel.jpg. Si no existe, se ve el recuadro. -->
-          <img src="assets/daniel.jpg" alt="Daniel Gonzalez, optometrista" loading="lazy" onerror="this.remove()">
+                    <img src="assets/daniel.jpg" alt="Daniel Gonzalez, optometrista" width="804" height="802" loading="lazy" onerror="this.remove()">
         </div>
         <div class="reveal">
           <span class="eyebrow">Sobre Daniel</span>

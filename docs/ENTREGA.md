@@ -7,7 +7,8 @@
 - [ ] **Turnstile**: hostnames con el dominio final (y `localhost` si se prueba local).
 - [ ] **Worker keepalive** desplegado y probado (ver `worker/README.md`).
 - [ ] **Dominio** conectado a Cloudflare Pages y URLs actualizadas (ver `docs/DOMINIO.md`).
-- [ ] **Logo real** (SVG/PNG) y **foto de Daniel** (`assets/daniel.jpg`) cargados.
+- [x] **Logo** (vectorizado desde una captura de Instagram) y **foto de Daniel** (`assets/daniel.jpg`) cargados.
+- [ ] Opcional: si Daniel tiene el logo original (SVG/PNG de alta resolución), reemplazar `assets/logo*.svg` y volver a generar los íconos. El azul de la web es `#0B4380`; el de la captura da `#004279`: confirmar cuál es el oficial.
 - [ ] En la tabla `config`: **WhatsApp real de Daniel** (se cambia desde Panel → Config → Ajustes).
 
 ## Prueba completa con un turno real

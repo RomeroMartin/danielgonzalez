@@ -40,7 +40,7 @@ function mostrarLogin(mensaje = "") {
   const error = h("p", { class: "aviso-error", role: "alert", hidden: !mensaje }, mensaje);
   reemplazar(app, h("main", { class: "login" },
     h("div", { class: "login__caja" },
-      h("img", { src: "../assets/favicon.svg", alt: "", width: 64, height: 64 }),
+      h("img", { src: "../assets/logo-isotipo.svg", alt: "", width: 64, height: 64 }),
       h("h1", {}, "Panel de turnos"),
       h("p", { class: "lead" }, "Daniel Gonzalez · Consultorio Optométrico"),
       h("form", { class: "form", onsubmit: async (ev) => {
@@ -81,7 +81,7 @@ function armarEstructura() {
       icono(id), h("span", {}, texto), id === "pendientes" ? nodos.globo : null)));
   reemplazar(app, 
     h("header", { class: "cabecera" },
-      h("img", { src: "../assets/favicon.svg", alt: "", width: 32, height: 32 }),
+      h("img", { src: "../assets/logo-isotipo-blanco.svg", alt: "", width: 32, height: 32 }),
       h("strong", {}, "Daniel Gonzalez"),
       h("button", { type: "button", class: "cabecera__btn", "aria-label": "Actualizar", onclick: () => refrescarTodo() }, "⟳")),
     nodos.vista, nodos.nav);
